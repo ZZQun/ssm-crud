@@ -41,6 +41,12 @@
 		<property name="basePackage" value="com.zzq.crud.dao"></property>
 	</bean>
 	
+	<!-- 配置一个可以执行批量的sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
+	</bean>
+	
 	
 	
 	<!-- 事务控制器的配置 -->

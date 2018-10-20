@@ -10,6 +10,9 @@
 	<typeAliases>
 		<package name="com.zzq.crud.bean"/>
 	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
 
 
 </configuration>
