@@ -21,8 +21,8 @@ import com.github.pagehelper.PageInfo;
 import com.zzq.crud.bean.Employee;
 
 /**
- * Ê¹ÓÃspring²âÊÔÄ£¿éÌá¹©µÄ²âÊÔÇëÇó¹¦ÄÜ£¬²âÊÔcrudÇëÇó¹¦ÄÜµÄÕıÈ·ĞÔ
- * Spring4²âÊÔÊ±ĞèÒªservlet3.0µÄÖ§³Ö
+ * ä½¿ç”¨springæµ‹è¯•æ¨¡å—æä¾›çš„æµ‹è¯•è¯·æ±‚åŠŸèƒ½ï¼Œæµ‹è¯•crudè¯·æ±‚åŠŸèƒ½çš„æ­£ç¡®æ€§
+ * Spring4æµ‹è¯•æ—¶éœ€è¦servlet3.0çš„æ”¯æŒ
  * @author ZZQ
  *
  */
@@ -31,10 +31,10 @@ import com.zzq.crud.bean.Employee;
 @WebAppConfiguration
 @ContextConfiguration(locations= {"classpath:applicationContext.xml","file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 public class MVCTest {
-	//´«ÈëSpringMVCµÄioc
+	//ä¼ å…¥SpringMVCçš„ioc
 	@Autowired
 	WebApplicationContext context;
-	//ĞéÄâmvcÇëÇó£¬»ñÈ¡µ½´¦Àí½á¹û
+	//è™šæ‹Ÿmvcè¯·æ±‚ï¼Œè·å–åˆ°å¤„ç†ç»“æœ
 	MockMvc mockMvc; 
 	
 	@Before
@@ -47,22 +47,22 @@ public class MVCTest {
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/emps").param("pn", "5"))
 							.andReturn();
 		
-		//ÇëÇó³É¹¦ÒÔºó£¬ÇëÇóÓòÖĞ»áÓĞpageInfo£¬ÎÒÃÇ¿ÉÒÔÈ¡³öpageInfo½øĞĞÑéÖ¤
+		//è¯·æ±‚æˆåŠŸä»¥åï¼Œè¯·æ±‚åŸŸä¸­ä¼šæœ‰pageInfoï¼Œæˆ‘ä»¬å¯ä»¥å–å‡ºpageInfoè¿›è¡ŒéªŒè¯
 		MockHttpServletRequest request = result.getRequest();
 		PageInfo pi = (PageInfo) request.getAttribute("pageInfo");
-		System.out.println("µ±Ç°Ò³Âë£º" + pi.getPageNum());
-		System.out.println("×ÜÒ³Âë£º" + pi.getPages());
-		System.out.println("×Ü¼ÇÂ¼Êı£º" + pi.getTotal());
-		System.out.println("ÔÚÒ³ÃæĞèÒªÁ¬ĞøÏÔÊ¾µÄÒ³Âë£º");
+		System.out.println("å½“å‰é¡µç ï¼š" + pi.getPageNum());
+		System.out.println("æ€»é¡µç ï¼š" + pi.getPages());
+		System.out.println("æ€»è®°å½•æ•°ï¼š" + pi.getTotal());
+		System.out.println("åœ¨é¡µé¢éœ€è¦è¿ç»­æ˜¾ç¤ºçš„é¡µç ï¼š");
 		int[] nums = pi.getNavigatepageNums();
 		for(int i = 0;i< nums.length;i++) {
 			System.out.print(nums[i] + " ");
 		}
 		
-		//»ñÈ¡Ô±¹¤Êı¾İ
+		//è·å–å‘˜å·¥æ•°æ®
 		List<Employee> list = pi.getList();
 		for(Employee employee : list) {
-			System.out.println("ID£º" + employee.getEmpId() + "==>Name:" + employee.getEmpName());
+			System.out.println("IDï¼š" + employee.getEmpId() + "==>Name:" + employee.getEmpName());
 		}
 		
 	}

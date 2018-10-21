@@ -19,12 +19,12 @@ import com.zzq.crud.dao.DepartmentMapper;
 import com.zzq.crud.dao.EmployeeMapper;
 
 /**
- * ²âÊÔdao²ãµÄ¹¤×÷
+ * æµ‹è¯•daoå±‚çš„å·¥ä½œ
  * @author ZZQ
- *ÍÆ¼öSpringµÄÏîÄ¿¿ÉÒÔÊ¹ÓÃSpringµÄµ¥Ôª²âÊÔ£¬¿ÉÒÔ×Ô¶¯×¢ÈëÎÒÃÇĞèÒªµÄ×é¼ş
- *1¡¢µ¼ÈëSpringTestÄ£¿é
- *2¡¢@ContextConfigurationÖ¸¶¨springÅäÖÃÎÄ¼şµÄÎ»ÖÃ
- *3¡¢Ö±½ÓautowiredÒªÊ¹ÓÃµÄ×é¼ş
+ *æ¨èSpringçš„é¡¹ç›®å¯ä»¥ä½¿ç”¨Springçš„å•å…ƒæµ‹è¯•ï¼Œå¯ä»¥è‡ªåŠ¨æ³¨å…¥æˆ‘ä»¬éœ€è¦çš„ç»„ä»¶
+ *1ã€å¯¼å…¥SpringTestæ¨¡å—
+ *2ã€@ContextConfigurationæŒ‡å®šspringé…ç½®æ–‡ä»¶çš„ä½ç½®
+ *3ã€ç›´æ¥autowiredè¦ä½¿ç”¨çš„ç»„ä»¶
  */
 
  
@@ -37,24 +37,24 @@ public class MapperTest {
 	@Autowired
 	SqlSession sqlSession;
 	/**
-	 * ²âÊÔDepartmentMapper
+	 * æµ‹è¯•DepartmentMapper
 	 */
 	@Test
 	public void testCRUD() {
-		//1.´´½¨SpringIOCÈİÆ÷
+		//1.åˆ›å»ºSpringIOCå®¹å™¨
 //		ApplicationContext ioc = new ClassPathXmlApplicationContext("applicationContext.xml");
-		//2.´ÓÈİÆ÷ÖĞ»ñÈ¡mapper
+		//2.ä»å®¹å™¨ä¸­è·å–mapper
 //		DepartmentMapper bean =  ioc.getBean(DepartmentMapper.class);
 		System.out.println(departmentMapper);
 		
-		//1.²åÈë¼¸¸ö²¿ÃÅ		
-//		departmentMapper.insertSelective(new Department(null,"¿ª·¢²¿"));
-//		departmentMapper.insertSelective(new Department(null,"²âÊÔ²¿"));
+		//1.æ’å…¥å‡ ä¸ªéƒ¨é—¨		
+//		departmentMapper.insertSelective(new Department(null,"å¼€å‘éƒ¨"));
+//		departmentMapper.insertSelective(new Department(null,"æµ‹è¯•éƒ¨"));
 		
-		//2.Éú³ÉÔ±¹¤Êı¾İ£¬²âÊÔÔ±¹¤²åÈë
+		//2.ç”Ÿæˆå‘˜å·¥æ•°æ®ï¼Œæµ‹è¯•å‘˜å·¥æ’å…¥
 //		employeeMapper.insertSelective(new Employee(null, "Jerry", "M", "845211164@qq.com", 1));
 		
-		//3.ÅúÁ¿²åÈë¶à¸öÔ±¹¤£¬¿ÉÒÔÊ¹ÓÃÖ´ĞĞÅúÁ¿²Ù×÷µÄsqlSession
+		//3.æ‰¹é‡æ’å…¥å¤šä¸ªå‘˜å·¥ï¼Œå¯ä»¥ä½¿ç”¨æ‰§è¡Œæ‰¹é‡æ“ä½œçš„sqlSession
 //		for() {
 //			employeeMapper.insertSelective(new Employee(null, "Jerry", "M", "845211164@qq.com", 1));
 //		}

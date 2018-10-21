@@ -6,15 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zzq.crud.bean.Employee;
+import com.zzq.crud.bean.Msg;
 import com.zzq.crud.service.EmployeeService;
 /**
- * ´¦ÀíÔ±¹¤CRUDÇëÇó
+ * å¤„ç†å‘˜å·¥CRUDè¯·æ±‚
  * @author ZZQ
  *
  */
@@ -23,20 +25,65 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
 	/**
-	 * ²éÑ¯Ô±¹¤Êı¾İ£¨·ÖÒ³²éÑ¯£©
+	 * æ£€æŸ¥ç”¨æˆ·åæ˜¯å¦å¯ç”¨
+	 * @param empName
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/checkuser")
+	public Msg checkUser(@RequestParam("empName")String empName) {
+		boolean b = employeeService.checkUser(empName);
+		if(b) {
+			return Msg.success();
+		}else {
+			return Msg.fail();
+		}
+	}
+	
+	/**
+	 * å‘˜å·¥ä¿å­˜
+	 * @return
+	 */
+	@RequestMapping(value="/emp",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveEmp(Employee employee) {
+		employeeService.saveEmp(employee);
+		return Msg.success();
+	}
+	
+		
+	/**
+	 * æŸ¥è¯¢å‘˜å·¥æ•°æ®ï¼ˆåˆ†é¡µæŸ¥è¯¢ï¼‰
+	 * å¯¼å…¥jacksonåŒ…
 	 * @return
 	 */
 	@RequestMapping("/emps")
+	@ResponseBody
+	public Msg getEmpsWithJson(@RequestParam(value = "pn",defaultValue = "1")Integer pn,
+			Model model) {
+		//å¼•å…¥PageHelperåˆ†é¡µæ’ä»¶
+				//åœ¨æŸ¥è¯¢ä¹‹å‰åªéœ€è¦è°ƒç”¨PageHelper.startPage,ä¼ å…¥é¡µç ï¼Œä»¥åŠæ¯é¡µå¤§å°
+				PageHelper.startPage(pn, 5);
+				//startPageåé¢ç´§è·Ÿçš„è¿™ä¸ªæŸ¥è¯¢å°±æ˜¯ä¸€ä¸ªåˆ†é¡µæŸ¥è¯¢
+				List<Employee> emps = employeeService.getAll();
+				//ä½¿ç”¨PageInfoåŒ…è£…æŸ¥è¯¢åçš„ç»“æœï¼Œåªéœ€è¦å°†PageInfoäº¤ç»™é¡µé¢
+				//å°è£…äº†è¯¦ç»†çš„åˆ†é¡µä¿¡æ¯ï¼ŒåŒ…æ‹¬æˆ‘ä»¬æŸ¥è¯¢å‡ºæ¥çš„æ•°æ®ï¼Œä¼ å…¥è¿ç»­æ˜¾ç¤ºçš„é¡µæ•°
+				PageInfo page = new PageInfo(emps,5);				
+				return Msg.success().add("pageInfo",page);
+	}
+	
+//	@RequestMapping("/emps")
 	public String getEmps(@RequestParam(value = "pn",defaultValue = "1")Integer pn,
 			Model model) {
-		//ÒıÈëPageHelper·ÖÒ³²å¼ş
-		//ÔÚ²éÑ¯Ö®Ç°Ö»ĞèÒªµ÷ÓÃPageHelper.startPage,´«ÈëÒ³Âë£¬ÒÔ¼°Ã¿Ò³´óĞ¡
+		//å¼•å…¥PageHelperåˆ†é¡µæ’ä»¶
+		//åœ¨æŸ¥è¯¢ä¹‹å‰åªéœ€è¦è°ƒç”¨PageHelper.startPage,ä¼ å…¥é¡µç ï¼Œä»¥åŠæ¯é¡µå¤§å°
 		PageHelper.startPage(pn, 5);
-		//startPageºóÃæ½ô¸úµÄÕâ¸ö²éÑ¯¾ÍÊÇÒ»¸ö·ÖÒ³²éÑ¯
+		//startPageåé¢ç´§è·Ÿçš„è¿™ä¸ªæŸ¥è¯¢å°±æ˜¯ä¸€ä¸ªåˆ†é¡µæŸ¥è¯¢
 		List<Employee> emps = employeeService.getAll();
-		//Ê¹ÓÃPageInfo°ü×°²éÑ¯ºóµÄ½á¹û£¬Ö»ĞèÒª½«PageInfo½»¸øÒ³Ãæ
-		//·â×°ÁËÏêÏ¸µÄ·ÖÒ³ĞÅÏ¢£¬°üÀ¨ÎÒÃÇ²éÑ¯³öÀ´µÄÊı¾İ£¬´«ÈëÁ¬ĞøÏÔÊ¾µÄÒ³Êı
+		//ä½¿ç”¨PageInfoåŒ…è£…æŸ¥è¯¢åçš„ç»“æœï¼Œåªéœ€è¦å°†PageInfoäº¤ç»™é¡µé¢
+		//å°è£…äº†è¯¦ç»†çš„åˆ†é¡µä¿¡æ¯ï¼ŒåŒ…æ‹¬æˆ‘ä»¬æŸ¥è¯¢å‡ºæ¥çš„æ•°æ®ï¼Œä¼ å…¥è¿ç»­æ˜¾ç¤ºçš„é¡µæ•°
 		PageInfo page = new PageInfo(emps,5);
 		model.addAttribute("pageInfo", page);
 		
