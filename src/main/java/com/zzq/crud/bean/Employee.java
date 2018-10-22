@@ -1,12 +1,20 @@
 package com.zzq.crud.bean;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 public class Employee {
     private Integer empId;
 
+    @Pattern(regexp = "(^[\\u4e00-\\u9fa5]{2,5}$)|(^[a-zA-Z]{3,16}$)"
+    		,message = "姓名错误，姓名可以是2-5位中文或者3-16位英文！")
     private String empName;
 
     private String gender;
 
+    @Pattern(regexp = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
+    		,message = "邮箱格式不正确！")
     private String email;
 
     private Integer dId;
@@ -25,7 +33,6 @@ public Employee(Integer empId, String empName, String gender, String email, Inte
 		this.dId = dId;
 	}
 
-	//ϣ����ѯԱ����ͬʱ������ϢҲ�ǲ�ѯ�õ�
     private Department department;
 
 
