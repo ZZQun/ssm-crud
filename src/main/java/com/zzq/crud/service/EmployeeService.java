@@ -97,7 +97,7 @@ public class EmployeeService {
 	 */
 	public void deleteEmpById(String ids) {
 		if(ids.contains("-")) {
-			List<Integer> id_list = new ArrayList<>();
+			List<Integer> id_list = new ArrayList<Integer>();
 			String[] str_ids = ids.split("-");
 			for(String string : str_ids) {
 				id_list.add(Integer.parseInt(string));				

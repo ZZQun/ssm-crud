@@ -56,7 +56,7 @@ public class EmployeeController {
 	@RequestMapping(value="/emp/{empId}",method=RequestMethod.PUT)
 	public Msg updateEmp(@Valid Employee employee,BindingResult result) {
 		if(result.hasErrors()) {
-			Map<String,Object> map = new HashMap<>();
+			Map<String,Object> map = new HashMap<String,Object>();
 			List<FieldError> errors = result.getFieldErrors();
 			for(FieldError fieldError : errors) {
 				map.put(fieldError.getField(), fieldError.getDefaultMessage());
@@ -104,7 +104,7 @@ public class EmployeeController {
 	public Msg saveEmp(@Valid Employee employee,BindingResult result) {
 		if(result.hasErrors()) {
 			//校验失败，在模态框中显示错误的信息
-			Map<String,Object> map = new HashMap<>();
+			Map<String,Object> map = new HashMap<String,Object>();
 			List<FieldError> errors = result.getFieldErrors();
 			for(FieldError fieldError : errors) {
 				map.put(fieldError.getField(), fieldError.getDefaultMessage());
