@@ -131,7 +131,7 @@
 		<!-- 标题 -->
 		<div class="row">
 			<div class="col-md-12">
-				<h1>SSM-CRUD</h1>
+				<h1>员工信息</h1>
 			</div>
 		</div>
 		<!-- 按钮 -->
@@ -139,12 +139,12 @@
 			<div class="col-md-4 col-md-offset-8">
 				<button class="btn btn-primary" id="emp_add_model_btn">新增</button>
 				<button class="btn btn-danger" id="emp_delete_all_btn">删除</button>
+				<button class="btn btn-info" id="dept_jump_btn">部门列表</button>
 			</div>
 		</div>
 		<!-- 显示表格数据 -->
 		<div class="row">
 			<div class="col-md-12">
-				
 				<table class="table table-hover" id="emps_tables">
 					<thead>
 						<tr>
@@ -177,7 +177,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+<script type="text/javascript">
 		var totalRecord,currentPage;
 	
 		//1、页面加载完成以后，直接去发送一个ajax请求，要到分页数据
@@ -305,6 +305,11 @@
 	        $(ele).find(".help-block").text("");
 	    }
 	
+		//部门列表按钮跳转
+		$("#dept_jump_btn").click(function(){
+			window.location.href='${APP_PATH}/dept.jsp';
+		});
+		
 		//点击新增按钮弹出模态框
 		$("#emp_add_model_btn").click(function(){
 			//清除表单数据（表单完整重置（表单的数据，表单的样式））
